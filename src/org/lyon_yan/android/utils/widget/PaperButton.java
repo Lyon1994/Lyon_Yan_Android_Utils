@@ -25,8 +25,11 @@ public class PaperButton extends View {
 	private static final int StateNormal = 1;
 	private static final int StateTouchDown = 2;
 	private static final int StateTouchUp = 3;
+	@SuppressWarnings("unused")
 	private static final float SHADOW_RADIUS = 8.0f;
+	@SuppressWarnings("unused")
 	private static final float SHADOW_OFFSET_X = 0.0f;
+	@SuppressWarnings("unused")
 	private static final float SHADOW_OFFSET_Y = 4.0f;
 	private static final float MIN_SHADOW_COLOR_ALPHA = 0.1f;
 	private static final float MAX_SHADOW_COLOR_ALPHA = 0.4f;
