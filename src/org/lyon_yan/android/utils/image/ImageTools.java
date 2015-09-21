@@ -98,6 +98,7 @@ public class ImageTools {
 	 * @param pixels
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static BitmapDrawable toRoundCorner(BitmapDrawable bitmapDrawable,
 			int pixels) {
 		Bitmap bitmap = bitmapDrawable.getBitmap();

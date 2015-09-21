@@ -13,7 +13,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.util.Log;
 
-@SuppressWarnings("deprecation")
 public class UtilsNet {
 	public static String getLocalIpV6Address() {
 		try {
