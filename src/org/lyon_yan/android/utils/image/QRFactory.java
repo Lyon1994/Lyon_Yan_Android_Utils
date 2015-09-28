@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.ChecksumException;
+import com.google.zxing.DecodeHintType;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.FormatException;
 import com.google.zxing.MultiFormatWriter;
@@ -48,12 +49,14 @@ public class QRFactory {
 	}
 
 	public static String getQRValue(Bitmap bitmap) {
+		Hashtable<DecodeHintType, String> hints = new Hashtable<DecodeHintType, String>();
+		hints.put(DecodeHintType.CHARACTER_SET, "GBK");
 		RGBLuminanceSource source = new RGBLuminanceSource(bitmap);
 		BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
 		QRCodeReader reader = new QRCodeReader();
 		Result result;
 		try {
-			result = reader.decode(bitmap1);
+			result = reader.decode(bitmap1, hints);
 			// 得到解析后的文字
 			return result.getText();
 		} catch (NotFoundException e) {
