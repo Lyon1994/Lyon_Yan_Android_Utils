@@ -50,7 +50,7 @@ public class QRFactory {
 
 	public static String getQRValue(Bitmap bitmap) {
 		Hashtable<DecodeHintType, String> hints = new Hashtable<DecodeHintType, String>();
-		hints.put(DecodeHintType.CHARACTER_SET, "GBK");
+		hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
 		RGBLuminanceSource source = new RGBLuminanceSource(bitmap);
 		BinaryBitmap bitmap1 = new BinaryBitmap(new HybridBinarizer(source));
 		QRCodeReader reader = new QRCodeReader();
