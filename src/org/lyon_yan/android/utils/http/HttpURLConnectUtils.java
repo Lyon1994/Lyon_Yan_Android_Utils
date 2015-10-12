@@ -76,6 +76,7 @@ public class HttpURLConnectUtils {
 				data.append(temp);
 			}
 			buffer.close();
+			this.data=data.toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
