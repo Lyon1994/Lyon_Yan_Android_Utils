@@ -7,10 +7,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import android.util.Log;
+
 /**
  * URL快速访问工具Lite
- * @author Lyon_Yan
- * <br/><b>time</b>: 2015年10月12日 下午2:53:44
+ * 
+ * @author Lyon_Yan <br/>
+ *         <b>time</b>: 2015年10月12日 下午2:53:44
  */
 public class HttpURLConnectUtils {
 	private String data = null;
@@ -67,16 +71,33 @@ public class HttpURLConnectUtils {
 
 	public String getRequest() {
 		try {
+			if(urlConn==null){
+				Log.v("lyon2", "==========>" + "urlConn==null:" + data);
+			}
+			Log.v("lyon2", "==========>" + "1:" + data);
+			urlConn.setRequestMethod("GET");
+			urlConn.setDoOutput(true);
+			urlConn.setDoInput(true);
+			urlConn.setUseCaches(false);
+			urlConn.setInstanceFollowRedirects(true);
+			// postData = "data=byPostMethod";
+			urlConn.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
 			urlConn.connect();
+			Log.v("lyon2", "==========>" + "2:" + data);
 			BufferedReader buffer = new BufferedReader(new InputStreamReader(
 					urlConn.getInputStream()));
+			Log.v("lyon2", "==========>" + "3:" + data);
 			String temp = null;
 			StringBuffer data = new StringBuffer("");
+			Log.v("lyon2", "==========>" + "4:" + data);
 			while ((temp = buffer.readLine()) != null) {
 				data.append(temp);
 			}
+			Log.v("lyon2", "==========>" + "5:" + data);
 			buffer.close();
-			this.data=data.toString();
+			Log.v("lyon2", "==========>" + "6:" + data);
+			this.data = data.toString();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
