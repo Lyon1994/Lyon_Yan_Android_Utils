@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 
@@ -38,5 +40,29 @@ public class FileUtill {
 
 	public void setContext(Context context) {
 		this.context = context;
+	}
+
+	/**
+	 * 获取文件夹下的所有文件
+	 * 
+	 * @author Lyon_Yan <br/>
+	 *         <b>time</b>: 2015年10月26日 下午5:13:19
+	 * @param dir
+	 * @return
+	 */
+	public static List<File> getAllFiles(File dir) {
+		List<File> filess = new ArrayList<File>();
+		if (dir.isDirectory()) {
+			File[] files = dir.listFiles();
+			for (File file : files) {
+				if (file.isDirectory()) {
+					// 这里面用了递归的算法
+					filess.addAll(getAllFiles(file));
+				} else {
+					filess.add(file);
+				}
+			}
+		}
+		return filess;
 	}
 }
