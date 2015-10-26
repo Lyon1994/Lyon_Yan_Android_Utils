@@ -86,12 +86,13 @@ public class FileUtill {
 		if (dir.isDirectory()) {
 			File[] files = dir.listFiles();
 			for (File file : files) {
+				String temp = File.pathSeparator + file.getName();
 				if (file.isDirectory()) {
 					// 这里面用了递归的算法
-					String temp = File.pathSeparator + file.getName();
 					copyFiles(from_path + temp, to_path + temp);
 				} else {
-					fileChannelCopy(dir, to_dir);
+					fileChannelCopy(new File(from_path + temp), new File(
+							to_path + temp));
 				}
 			}
 		}
