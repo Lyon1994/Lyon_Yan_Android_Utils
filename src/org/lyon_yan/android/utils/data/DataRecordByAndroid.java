@@ -38,6 +38,17 @@ public class DataRecordByAndroid {
 		// 提交
 		editor.commit();
 	}
+	
+
+	public void saveValueInt(String key, int value) throws Exception {
+		// TODO Auto-generated method stub
+		// 获得编辑器
+		Editor editor = preferences.edit();
+		// 存值
+		editor.putInt(key, value);
+		// 提交
+		editor.commit();
+	}
 
 	public float getValueFloat(String key) throws Exception {
 		// TODO Auto-generated method stub
@@ -45,11 +56,26 @@ public class DataRecordByAndroid {
 		return getValueFloat(key, 0);
 	}
 
+	public float getValueInt(String key) throws Exception {
+		// TODO Auto-generated method stub
+		// 取值，第二个参数是当key不存在时返回的默认值。
+		return getValueInt(key, 0);
+	}
+
 	public float getValueFloat(String key, float defValue) throws Exception {
 		// TODO Auto-generated method stub
 		// 取值，第二个参数是当key不存在时返回的默认值。
 		if (preferences.contains(key)) {
 			float values = preferences.getFloat(key, defValue);
+			return values;
+		} else {
+			return defValue;
+		}
+	}public float getValueInt(String key, int defValue) throws Exception {
+		// TODO Auto-generated method stub
+		// 取值，第二个参数是当key不存在时返回的默认值。
+		if (preferences.contains(key)) {
+			float values = preferences.getInt(key, defValue);
 			return values;
 		} else {
 			return defValue;
