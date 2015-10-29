@@ -30,16 +30,19 @@ public class ObjectUtils {
 						if (map.containsKey(temp)) {
 							field.set(object, map.get(temp));
 						}
+						temp=null;
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
 				}
+				obj=null;
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
 		}
+		fields=null;
 	}
 
 	/**
@@ -65,12 +68,15 @@ public class ObjectUtils {
 				if (!list.contains(obj)) {
 					map.put(field.getName(), obj);
 				}
+				obj=null;
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
 		}
+		fields=null;
+		list=null;
 		return map;
 	}
 
