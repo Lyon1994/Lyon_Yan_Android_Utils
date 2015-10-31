@@ -27,10 +27,8 @@ public class ObjectByJsonObjectUtils {
 				String name = field.getName();
 				if (jsonObject.has(name)) {
 					try {
-						name = name.substring(0, 1).toUpperCase()
-								+ name.substring(1); // 将属性的首字符大写，方便构造get，set方法
 						Method method = object.getClass().getMethod(
-								"set" + name, field.getType());
+								RefecltUtils.returnSetName(name), field.getType());
 						method.invoke(object, jsonObject.get(name));
 						name = null;
 					} catch (Exception e) {
