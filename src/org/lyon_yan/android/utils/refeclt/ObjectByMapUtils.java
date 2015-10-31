@@ -1,6 +1,7 @@
 package org.lyon_yan.android.utils.refeclt;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -18,31 +19,28 @@ public class ObjectByMapUtils {
 	 *            不可为空
 	 */
 	public static void loadThisObjectByMap(Object object,
-			Map<String, String> map) {
+			Map<String, Object> map) {
 		Field[] fields = object.getClass().getDeclaredFields();
 		for (Field field : fields) {
-			Object obj;
 			try {
-				obj = field.get(object);
-				if (obj != null) {
+				String name = field.getName();
+				if (map.containsKey(name)) {
 					try {
-						String temp = field.getName();
-						if (map.containsKey(temp)) {
-							field.set(object, map.get(temp));
-						}
-						temp=null;
+						name = name.substring(0, 1).toUpperCase()
+								+ name.substring(1); // 将属性的首字符大写，方便构造get，set方法
+						Method method = object.getClass().getMethod(
+								"set" + name, field.getType());
+						method.invoke(object, map.get(name));
+						name = null;
 					} catch (Exception e) {
 						// TODO: handle exception
 					}
 				}
-				obj=null;
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
 		}
-		fields=null;
+		fields = null;
 	}
 
 	/**
@@ -68,15 +66,15 @@ public class ObjectByMapUtils {
 				if (!list.contains(obj)) {
 					map.put(field.getName(), obj);
 				}
-				obj=null;
+				obj = null;
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
 		}
-		fields=null;
-		list=null;
+		fields = null;
+		list = null;
 		return map;
 	}
 

@@ -1,6 +1,7 @@
 package org.lyon_yan.android.utils.refeclt;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class ObjectByJsonObjectUtils {
 	/**
 	 * 加载jsonObject中的数据至object
 	 * 
-	 * @author Lyon_Yan <br/>
+	 * @author Lyon_Yan <br>
 	 *         <b>time</b>: 2015年10月29日 下午3:15:59
 	 * @param object
 	 *            不可为空
@@ -22,24 +23,22 @@ public class ObjectByJsonObjectUtils {
 			JSONObject jsonObject) {
 		Field[] fields = object.getClass().getDeclaredFields();
 		for (Field field : fields) {
-			Object obj;
 			try {
-				obj = field.get(object);
-				if (obj != null) {
+				String name = field.getName();
+				if (jsonObject.has(name)) {
 					try {
-						String temp = field.getName();
-						if (jsonObject.has(temp)) {
-							field.set(object, jsonObject.get(temp));
-						}
-						temp = null;
+						name = name.substring(0, 1).toUpperCase()
+								+ name.substring(1); // 将属性的首字符大写，方便构造get，set方法
+						Method method = object.getClass().getMethod(
+								"set" + name, field.getType());
+						method.invoke(object, jsonObject.get(name));
+						name = null;
 					} catch (Exception e) {
 						// TODO: handle exception
+						e.printStackTrace();
 					}
 				}
-				obj = null;
 			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			}
 		}
