@@ -59,18 +59,21 @@ public class ObjectByMapUtils {
 		Field[] fields = object.getClass().getDeclaredFields();
 		List<String> list = Arrays.asList(ignore);
 		for (Field field : fields) {
-			Object obj;
+			String name = field.getName();
 			try {
-				obj = field.get(object);
+				Method method = object.getClass().getMethod(
+						RefecltUtils.returnGetName(name));
+				Object obj = method.invoke(object);
 				if (!list.contains(obj)) {
-					map.put(field.getName(), obj);
+					map.put(name, obj);
 				}
+				method = null;
 				obj = null;
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
+			} catch (Exception e) {
+				// TODO: handle exception
 				e.printStackTrace();
 			}
+			name = null;
 		}
 		fields = null;
 		list = null;

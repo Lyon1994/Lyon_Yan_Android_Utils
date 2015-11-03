@@ -3,7 +3,9 @@ package org.lyon_yan.android.utils.refeclt;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +30,8 @@ public class ObjectByJsonObjectUtils {
 				if (jsonObject.has(name)) {
 					try {
 						Method method = object.getClass().getMethod(
-								RefecltUtils.returnSetName(name), field.getType());
+								RefecltUtils.returnSetName(name),
+								field.getType());
 						method.invoke(object, jsonObject.get(name));
 						name = null;
 					} catch (Exception e) {
@@ -61,18 +64,21 @@ public class ObjectByJsonObjectUtils {
 		Field[] fields = object.getClass().getDeclaredFields();
 		List<String> list = Arrays.asList(ignore);
 		for (Field field : fields) {
-			Object obj;
+			String name = field.getName();
 			try {
-				obj = field.get(object);
+				Method method = object.getClass().getMethod(
+						RefecltUtils.returnGetName(name));
+				Object obj = method.invoke(object);
 				if (!list.contains(obj)) {
-					jsonObject.put(field.getName(), obj);
+					jsonObject.put(name, obj);
 				}
+				method = null;
 				obj = null;
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
+			} catch (Exception e) {
+				// TODO: handle exception
 				e.printStackTrace();
 			}
+			name = null;
 		}
 		fields = null;
 		list = null;
