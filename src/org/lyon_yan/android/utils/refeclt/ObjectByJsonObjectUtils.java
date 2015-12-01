@@ -30,7 +30,9 @@ public class ObjectByJsonObjectUtils {
 						Method method = object.getClass().getMethod(
 								RefecltUtils.returnSetName(name),
 								field.getType());
-						method.invoke(object, jsonObject.get(name));
+						if(jsonObject.has(name)){
+							method.invoke(object, jsonObject.get(name));
+						}
 						name = null;
 					} catch (Exception e) {
 						// TODO: handle exception
