@@ -30,8 +30,34 @@ public class ObjectByJsonObjectUtils {
 						Method method = object.getClass().getMethod(
 								RefecltUtils.returnSetName(name),
 								field.getType());
-						if(jsonObject.has(name)){
-							method.invoke(object, jsonObject.get(name));
+						if (jsonObject.has(name)) {
+							if (field.getType().equals(int.class)) {
+								method.invoke(object, jsonObject.getInt(name));
+							} else if (field.getType().equals(double.class)
+									|| field.getType().equals(Double.class)) {
+								method.invoke(object,
+										jsonObject.getDouble(name));
+							} else if (field.getType().equals(float.class)
+									|| field.getType().equals(Float.class)) {
+								method.invoke(object, Float.valueOf(jsonObject
+										.getString(name)));
+							} else if (field.getType().equals(long.class)
+									|| field.getType().equals(Long.class)) {
+								method.invoke(object, Long.valueOf(jsonObject
+										.getString(name)));
+							} else if (field.getType().equals(boolean.class)
+									|| field.getType().equals(Boolean.class)) {
+								method.invoke(object, Boolean
+										.valueOf(jsonObject.getString(name)));
+							} else if (field.getType().equals(String.class)) {
+								method.invoke(object,
+										jsonObject.getString(name));
+							} else {
+								method.invoke(
+										object,
+										field.getType().cast(
+												jsonObject.get(name)));
+							}
 						}
 						name = null;
 					} catch (Exception e) {
