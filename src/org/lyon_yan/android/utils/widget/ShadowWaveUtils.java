@@ -63,6 +63,18 @@ public class ShadowWaveUtils {
 	private long mStartTime;
 	private int mState = StateNormal;
 
+	public void setCornerRadius(int mCornerRadius) {
+		this.mCornerRadius = mCornerRadius;
+	}
+
+	public void setMoveOutside(boolean mMoveOutside) {
+		this.mMoveOutside = mMoveOutside;
+	}
+
+	public void setPadding(int mPadding) {
+		this.mPadding = mPadding;
+	}
+
 	public void setShadowOffsetX(float mShadowOffsetX) {
 		this.mShadowOffsetX = mShadowOffsetX;
 	}
