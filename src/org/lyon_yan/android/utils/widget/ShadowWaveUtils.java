@@ -63,6 +63,18 @@ public class ShadowWaveUtils {
 	private long mStartTime;
 	private int mState = StateNormal;
 
+	public void setShadowOffsetX(float mShadowOffsetX) {
+		this.mShadowOffsetX = mShadowOffsetX;
+	}
+
+	public void setShadowRadius(float mShadowRadius) {
+		this.mShadowRadius = mShadowRadius;
+	}
+
+	public void setShadowOffsetY(float mShadowOffsetY) {
+		this.mShadowOffsetY = mShadowOffsetY;
+	}
+
 	private CharSequence mText;
 	private int mTextColor;
 	private int mTextSize;
